@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyApp", "MyApp\MyApp.csproj", "{9DF90517-1DF4-4123-89A4-60E6A7AE6596}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyApp", "MyApp\MyApp.csproj", "{9DF90517-1DF4-4123-89A4-60E6A7AE6596}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL", "DAL\DAL.csproj", "{7699BBFD-A655-4C8F-8DF2-60F9D897FE27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{7699BBFD-A655-4C8F-8DF2-60F9D897FE27}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CommonLib", "CommonLib\CommonLib.csproj", "{F1B9D294-68FA-4097-B5FF-B6DE437067D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{7699BBFD-A655-4C8F-8DF2-60F9D897FE27}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7699BBFD-A655-4C8F-8DF2-60F9D897FE27}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7699BBFD-A655-4C8F-8DF2-60F9D897FE27}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1B9D294-68FA-4097-B5FF-B6DE437067D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1B9D294-68FA-4097-B5FF-B6DE437067D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1B9D294-68FA-4097-B5FF-B6DE437067D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1B9D294-68FA-4097-B5FF-B6DE437067D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
