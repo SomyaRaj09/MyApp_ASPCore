@@ -17,5 +17,12 @@ namespace CommonLib.Library
                 return ConnectionString;
             }
         }
+        public enum SQLParamPlaces
+        {
+            Default = Reader | Writer,
+            None = 2,
+            Reader = 4,
+            Writer = 8
+        }
     }
 }
