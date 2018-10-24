@@ -11,9 +11,9 @@ namespace DAL.Providers
     public class CustomerProvider
     {
         public CustomerHandler handler = new CustomerHandler();
-        public async Task<BaseResponse<bool>> CreateCustomer(CustomerModel model)
+        public async Task<BaseResponse<bool>> Customer_Save(CustomerModel model)
         {
-            return await handler.CreateCustomer(model);
+            return await handler.Customer_Save(model);
         }
     }
 }

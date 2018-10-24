@@ -17,9 +17,9 @@ namespace MyApp.Controllers
         public CustomerProvider prov= new CustomerProvider();
 
         [HttpPost]
-        public async Task<BaseResponse<bool>> CreateCustomer(CustomerModel model)
+        public async Task<BaseResponse<bool>> Customer_Save(CustomerModel model)
         {
-            return await prov.CreateCustomer(model);
+            return await prov.Customer_Save(model);
         }
 
         //// GET: api/Customer

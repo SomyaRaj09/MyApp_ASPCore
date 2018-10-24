@@ -14,21 +14,26 @@ namespace DAL.Handlers
 {
     public class CustomerHandler: BaseDAL
     {
-        public async Task<BaseResponse<bool>> CreateCustomer(CustomerModel model)
+        public async Task<BaseResponse<bool>> Customer_Save(CustomerModel model)
         {
             BaseResponse<bool> result = new BaseResponse<bool>();
             using (IDbConnection con = await CreateConnectionAsync())
             {
-                DynamicParameters parm = new DynamicParameters();
-                AutoGenerateInputParams(parm, model);
+                DynamicParameters param = new DynamicParameters();
 
-                await con.ExecuteAsync("[dbo].[Customer_Update]",parm,commandType:CommandType.StoredProcedure);
+                AutoGenerateInputParams(param, model);
+                
+                //Insert data into Customer table and get id in return
+                await con.ExecuteAsync("[dbo].[Customer_Save]", param, commandType:CommandType.StoredProcedure);
 
-
+                //Now make a loop on address list and insert in DB
+                foreach (CustomerAddress customerAddress in model.CustomerAddressList)
+                {
+                    await con.ExecuteAsync("[dbo].[CustomerAddress_Save]", param, commandType: CommandType.StoredProcedure);
+                }
 
                 result.IsSuccess = true;
                 result.Result = true;
-
             }
 
            return result;
