@@ -8,18 +8,15 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using static CommonLib.Library.AppSettings;
-using static DAL.Library.CustomAttributes;
 using System.Linq;
 using System.Xml;
 using Newtonsoft.Json;
+using static CommonLib.CustomAttributes;
 
 namespace DAL.Library
 {
-    
-   
     public class BaseDAL
-    {
-        
+    {   
         protected async Task<SqlConnection> CreateConnectionAsync()
         {
             SqlConnection conn = new SqlConnection(AppSettings.MainDBConnectionString);
@@ -29,9 +26,9 @@ namespace DAL.Library
             }
             return conn;
         }
+
         protected void AutoGenerateInputParams(DynamicParameters param, object request)
-        {
-        
+        {        
             foreach (PropertyInfo prop in request.GetType().GetProperties())
             {
                 string name = prop.Name;
@@ -49,20 +46,17 @@ namespace DAL.Library
                 }
 
                 //Console.WriteLine("T = " + prop.PropertyType.ToString() + " - " + (prop.GetValue(request) == null));
-
-
+                
                 if (prop.PropertyType.IsEnum)
                 {
                     if (prop.GetValue(request) == null)
                         param.Add(name, (int?)prop.GetValue(request));
                     else
                         param.Add(name, (int)prop.GetValue(request));
-                    //AddInParameter_Dapper(param, name, (int)prop.GetValue(request));
                 }
                 else if (prop.PropertyType == typeof(System.Xml.Linq.XElement))
                 {
                     param.Add(name, prop.GetValue(request).ToString());
-                    //AddInParameter_Dapper(param, name, prop.GetValue(request).ToString());
                 }
                 else if (prop.PropertyType.GetInterfaces().Any(x => x == typeof(System.Collections.Generic.IList<int>)
                                                                  || x == typeof(System.Collections.Generic.IList<long>)
@@ -106,9 +100,7 @@ namespace DAL.Library
                 else
                 {
                     param.Add(name, prop.GetValue(request));
-                    //AddInParameter_Dapper(param, name, prop.GetValue(request));
                 }
-
             }
         }
     }

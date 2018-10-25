@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CommonLib.Library;
+using System;
 using System.Collections.Generic;
 using System.Text;
-using static CommonLib.Library.AppSettings;
 
-namespace DAL.Library
+namespace CommonLib
 {
     public class CustomAttributes
     {

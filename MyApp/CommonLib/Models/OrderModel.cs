@@ -14,11 +14,13 @@ namespace CommonLib.Models
         public float Taxes { get; set; }
         public float DiscountAmount { get; set; }
         public string CouponCode { get; set; }
-        public List<OrderItemModel> OrderItemModelList { get; set; }
+        public List<OrderItem> OrderItemList { get; set; }
     }
 
-    public class OrderItemModel
+    public class OrderItem
     {
+        public int OrderItemId { get; set; }
+        public int OrderNumber { get; set; }
         public string ItemName { get; set; }
         public string ItemCode { get; set; }
         public float Price { get; set; }

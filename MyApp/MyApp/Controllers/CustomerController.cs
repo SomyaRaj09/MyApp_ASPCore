@@ -14,12 +14,19 @@ namespace MyApp.Controllers
     [ApiController]
     public class CustomerController : ControllerBase
     {
-        public CustomerProvider prov= new CustomerProvider();
+        public CustomerProvider prov = new CustomerProvider();
 
         [HttpPost]
-        public async Task<BaseResponse<bool>> Customer_Save(CustomerModel model)
+        public async Task<SimpleResponse> Customer_Save(CustomerModel req)
         {
-            return await prov.Customer_Save(model);
+            return await prov.Customer_Save(req);
+        }
+
+        [HttpPut]
+        public async Task<SimpleResponse> Customer_Update(int id, [FromBody]CustomerModel req)
+        {
+            req.CustomerId = id;
+            return await prov.Customer_Save(req);
         }
 
         //// GET: api/Customer
