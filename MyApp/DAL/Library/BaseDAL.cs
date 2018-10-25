@@ -17,6 +17,10 @@ namespace DAL.Library
 {
     public class BaseDAL
     {   
+        /// <summary>
+        /// Method to create connection string 
+        /// </summary>
+        /// <returns></returns>
         protected async Task<SqlConnection> CreateConnectionAsync()
         {
             SqlConnection conn = new SqlConnection(AppSettings.MainDBConnectionString);
@@ -27,6 +31,11 @@ namespace DAL.Library
             return conn;
         }
 
+        /// <summary>
+        /// Method used for dapper parameter for database(Stored procedures, functions etc.)
+        /// </summary>
+        /// <param name="param"></param>
+        /// <param name="request"></param>
         protected void AutoGenerateInputParams(DynamicParameters param, object request)
         {        
             foreach (PropertyInfo prop in request.GetType().GetProperties())

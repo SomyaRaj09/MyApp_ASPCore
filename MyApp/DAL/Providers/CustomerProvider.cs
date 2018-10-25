@@ -12,6 +12,12 @@ namespace DAL.Providers
     public class CustomerProvider
     {
         public CustomerHandler handler = new CustomerHandler();
+
+        /// <summary>
+        /// Provider for api to save customer data
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public async Task<SimpleResponse> Customer_Save(CustomerModel req)
         {
             SimpleResponse response = new SimpleResponse();
@@ -46,6 +52,12 @@ namespace DAL.Providers
             //}
         }
 
+        /// <summary>
+        /// Method to validate data while saving customer data
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="req"></param>
+        /// <returns></returns>
         private SimpleResponse ValidateCustomerSave(SimpleResponse response, CustomerModel req)
         {
             if (string.IsNullOrEmpty(req.Title))
@@ -112,10 +124,19 @@ namespace DAL.Providers
                     if (string.IsNullOrEmpty(customerAddress.State))
                     {
                         response.SetError(ErrorCodes.STATE_Required);
-                    }                    
+                    }
                 }
             }
             return response;
+        }
+
+        /// <summary>
+        /// Provider for api to search guest data
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResponse> Customer_Search()
+        {
+            return await handler.Customer_Search();
         }
     }
 }

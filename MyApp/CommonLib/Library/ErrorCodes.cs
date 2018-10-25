@@ -50,6 +50,33 @@ namespace CommonLib.Library
         STATE_Required = 1012,
 
         [Display(Name = "INVALID_GENDER")]
-        INVALID_GENDER = 1013
+        INVALID_GENDER = 1013,
+
+        [Display(Name = "CUSTOMERID_REQUIRED")]
+        CustomerId_Required = 2000,
+
+        [Display(Name = "CURRENCY_CODE_REQUIRED")]
+        CURRENCY_CODE_Required = 2001,
+
+        [Display(Name = "SHIPPING_COST_REQUIRED")]
+        ShippingCost_Required = 2002,
+
+        [Display(Name = "SHIPPING_METHOD_CODE_REQUIRED")]
+        ShippingMethodCode_Required = 2003,
+
+        [Display(Name = "TAXES_REQUIRED")]
+        Taxes_Required = 2004,
+
+        [Display(Name = "ITEM_CODE_REQUIRED")]
+        ITEM_CODE_Required = 2005,
+
+        [Display(Name = "ITEM_NAME_REQUIRED")]
+        ITEM_NAME_Required = 2006,
+
+        [Display(Name = "PRICE_REQUIRED")]
+        PRICE_Required = 2007,
+
+        [Display(Name = "QUANTITY_REQUIRED")]
+        QUANTITY_Required = 2008
     }
 }

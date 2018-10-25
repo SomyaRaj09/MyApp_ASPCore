@@ -8,11 +8,18 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Text;
 using System.Threading.Tasks;
+using static Dapper.SqlMapper;
+using System.Linq;
 
 namespace DAL.Handlers
 {
     public class OrderHandler : BaseDAL
     {
+        /// <summary>
+        /// Handler to save order data
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public async Task<SimpleResponse> Order_Save(OrderModel req)
         {
             SimpleResponse result = new SimpleResponse();
@@ -41,6 +48,49 @@ namespace DAL.Handlers
             }
 
             return result;
+        }
+
+        /// <summary>
+        /// Handler to search order data
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ListResponse> Order_Search()
+        {
+            ListResponse response = new ListResponse();
+            List<OrderModel> ret = new List<OrderModel>();
+
+            List<OrderLookup> lstOrderLookup = new List<OrderLookup>();
+            List<OrderItem> lstOrderItem = new List<OrderItem>();
+            using (SqlConnection con = await CreateConnectionAsync())
+            {
+                GridReader reader = await con.QueryMultipleAsync("dbo.Order_GetAll", commandType: System.Data.CommandType.StoredProcedure);
+                lstOrderLookup = (await reader.ReadAsync<OrderLookup>()).AsList<OrderLookup>();
+                lstOrderItem = (await reader.ReadAsync<OrderItem>()).AsList<OrderItem>();
+            }
+
+            foreach (OrderLookup orderLookup in lstOrderLookup)
+            {
+                OrderModel orderModel = new OrderModel();
+                orderModel.CouponCode = orderLookup.CouponCode;
+                orderModel.CurrencyCode = orderLookup.CurrencyCode;
+                orderModel.CustomerId = orderLookup.CustomerId;
+                orderModel.DiscountAmount = orderLookup.DiscountAmount;
+                orderModel.OrderDate = orderLookup.OrderDate;
+                orderModel.OrderNumber = orderLookup.OrderNumber;
+                orderModel.OrderTotal = orderLookup.OrderTotal;
+                orderModel.ShippingCost = orderLookup.ShippingCost;
+                orderModel.ShippingMethodCode = orderLookup.ShippingMethodCode;
+                orderModel.Taxes = orderLookup.Taxes;
+                orderModel.OrderItemList = new List<OrderItem>();
+                var orderItem = lstOrderItem.Where(ord => ord.OrderNumber == orderLookup.OrderNumber);
+                orderModel.OrderItemList = orderItem.ToList();
+
+                ret.Add(orderModel);
+            }
+
+            response.Result = ret.AsList();
+            //response.TotalRecords = ret.Count();
+            return response;
         }
     }
 }

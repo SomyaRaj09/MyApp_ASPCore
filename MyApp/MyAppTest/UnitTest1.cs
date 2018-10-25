@@ -29,6 +29,7 @@ namespace MyAppTest
                .UseStartup<Startup>());
             _client = _server.CreateClient();
         }
+
         [Fact]
         public void CustomerSave()
         {
@@ -52,6 +53,43 @@ namespace MyAppTest
              
             Assert.False(response.Data.HasError);
         }
+
+        [Fact]
+        public void OrderSave()
+        {
+            var client = new RestClient("http://localhost:15829");
+
+            var request = new RestRequest("/Order/Order_Save", Method.POST);
+            OrderModel model = new OrderModel();
+            model.CouponCode = "Coupon code";
+            model.CurrencyCode = "CAD";
+            model.CustomerId = 1;
+            model.DiscountAmount = 2;
+            model.OrderDate = new DateTime();
+            model.OrderItemList = new System.Collections.Generic.List<OrderItem>();
+            model.OrderItemList.Add(new OrderItem() {
+                ItemCode = "ItemCode",
+                ItemName = "Item Name",
+                OrderItemId = 0,
+                OrderNumber = 0,
+                Price = 20,
+                Quantity = 2
+            });
+            model.OrderNumber = 1;
+            model.OrderTotal = 20;
+            model.ShippingCost = 3;
+            model.ShippingMethodCode = "2DAY";
+            model.Taxes = 5;
+
+            string jsonToSend = JsonConvert.SerializeObject(model);
+            request.AddParameter("application/json; charset=utf-8", jsonToSend, ParameterType.RequestBody);
+            request.RequestFormat = DataFormat.Json;
+
+            IRestResponse<SimpleResponse> response = client.Execute<SimpleResponse>(request);
+
+            Assert.False(response.Data.HasError);
+        }
+
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>();

@@ -9,12 +9,18 @@ using System.Text;
 using System.Threading.Tasks;
 using Dapper;
 using DAL.Library;
+using System.Linq;
 using static Dapper.SqlMapper;
 
 namespace DAL.Handlers
 {
     public class CustomerHandler: BaseDAL
     {
+        /// <summary>
+        /// Handler to save customer data
+        /// </summary>
+        /// <param name="req"></param>
+        /// <returns></returns>
         public async Task<SimpleResponse> Customer_Save(CustomerModel req)
         {
             SimpleResponse result = new SimpleResponse();
@@ -45,21 +51,24 @@ namespace DAL.Handlers
            return result;
         }
 
+        /// <summary>
+        /// Handler to search guest data
+        /// </summary>
+        /// <returns></returns>
         public async Task<ListResponse> Customer_Search()
         {
             ListResponse response = new ListResponse();
-            IEnumerable<CustomerModel> ret = new List<CustomerModel>();
+            List<CustomerModel> ret = new List<CustomerModel>();
 
             List<CustomerLookup> lstCustomerLookup = new List<CustomerLookup>();
-            List<AddressLookup> lstAddresLookup = new List<AddressLookup>();
+            List<CustomerAddress> lstAddresLookup = new List<CustomerAddress>();
             using (SqlConnection con = await CreateConnectionAsync())
             {
                 GridReader reader = await con.QueryMultipleAsync("dbo.Customers_GetAll", commandType: System.Data.CommandType.StoredProcedure);
                 lstCustomerLookup = (await reader.ReadAsync<CustomerLookup>()).AsList<CustomerLookup>();
-                lstAddresLookup = (await reader.ReadAsync<AddressLookup>()).AsList<AddressLookup>();
+                lstAddresLookup = (await reader.ReadAsync<CustomerAddress>()).AsList<CustomerAddress>();
             }
-
-            List<CustomerModel> lstCustomerModel = new List<CustomerModel>();
+            
             foreach (CustomerLookup customerLookup in lstCustomerLookup)
             {
                 CustomerModel customerModel = new CustomerModel();
@@ -67,7 +76,27 @@ namespace DAL.Handlers
                 customerModel.DateofBirth = customerLookup.DateofBirth;
                 customerModel.FirstName = customerLookup.FirstName;
                 customerModel.Gender = customerLookup.Gender;
-
+                customerModel.LastName = customerLookup.LastName;
+                customerModel.Title = customerLookup.Title;
+                customerModel.CustomerAddressList = new List<CustomerAddress>();
+                var customerAddress = lstAddresLookup.Where(adr => adr.CustomerId == customerLookup.CustomerId);
+                customerModel.CustomerAddressList = customerAddress.ToList();
+                //foreach (AddressLookup addressLookup in customerAddress)
+                //{
+                //    customerModel.CustomerAddressList.Add(new CustomerAddress() {
+                //                                                                    Address1 = addressLookup.Address1,
+                //                                                                    Address2 = addressLookup.Address2,
+                //                                                                    AddressId = addressLookup.AddressId,
+                //                                                                    City = addressLookup.City,
+                //                                                                    Country = addressLookup.Country,
+                //                                                                    CustomerId = addressLookup.CustomerId,
+                //                                                                    IsBilling = addressLookup.IsBilling,
+                //                                                                    IsShipping = addressLookup.IsShipping,
+                //                                                                    PostalCode = addressLookup.PostalCode,
+                //                                                                    State = addressLookup.State
+                //    });
+                //}
+                ret.Add(customerModel);
             }
 
             response.Result = ret.AsList();
