@@ -47,6 +47,7 @@ namespace MyApp
             {
                 app.UseHsts();
             }
+            app.ConfigureExceptionHandler();
             app.UseStaticFiles();
             app.UseSwagger();
 

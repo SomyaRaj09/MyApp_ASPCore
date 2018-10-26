@@ -143,8 +143,8 @@ namespace CommonLib.Core
 
     public class ListResponse : BaseResponse
     {
-        public int TotalRecords { get; set; }
-        public int CurrentPage { get; set; }
+        //public int TotalRecords { get; set; }
+        //public int CurrentPage { get; set; }
         public object Result { get; set; }
 
         public ListResponse()
@@ -153,27 +153,27 @@ namespace CommonLib.Core
 
         public ListResponse(int TotalRecords, int CurrentPage, object Result)
         {
-            this.TotalRecords = TotalRecords;
-            this.CurrentPage = CurrentPage;
+            //this.TotalRecords = TotalRecords;
+            //this.CurrentPage = CurrentPage;
             this.Result = Result;
         }
 
-        public void SetPagingOutput(SqlCommand cmd)
-        {
-            object obj = cmd.Parameters["@TotalRecords"].Value;
-            if (obj == null || obj == DBNull.Value)
-            {
-                TotalRecords = 0;
-                return;
-            }
+        //public void SetPagingOutput(SqlCommand cmd)
+        //{
+        //    object obj = cmd.Parameters["@TotalRecords"].Value;
+        //    if (obj == null || obj == DBNull.Value)
+        //    {
+        //        TotalRecords = 0;
+        //        return;
+        //    }
 
-            TotalRecords = Convert.ToInt32(obj);
-        }
+        //    TotalRecords = Convert.ToInt32(obj);
+        //}
 
-        public void SetPagingOutput(DynamicParameters param)
-        {
-            TotalRecords = param.Get<int>("TotalRecords");
-        }
+        //public void SetPagingOutput(DynamicParameters param)
+        //{
+        //    TotalRecords = param.Get<int>("TotalRecords");
+        //}
     }
 
     public class ListRequest

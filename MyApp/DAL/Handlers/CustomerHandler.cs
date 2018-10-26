@@ -27,21 +27,40 @@ namespace DAL.Handlers
             DynamicParameters param = new DynamicParameters();
             AutoGenerateInputParams(param, req);
 
+            //Check for duplicacy for name
+            int duplicateCount = 0;
+
             int CustomerId = 0;
             using (SqlConnection con = await CreateConnectionAsync())
             {
+                duplicateCount = await con.ExecuteScalarAsync<int>($"Select count(*) from dbo.Customers where FirstName = '{ req.FirstName }' " +
+                                                                   $"and LastName = '{ req.LastName }' and CustomerId <> { req.CustomerId }");
+                if (duplicateCount > 0)
+                {
+                    result.SetError(ErrorCodes.CUSTOMER_NAME_Duplicate);
+                    result.Result = false;
+                    return result;
+                }
                 using (var trans = con.BeginTransaction())
                 {
                     //Insert data into Customer table and get id in return
                     CustomerId = await con.ExecuteScalarAsync<int>("[dbo].[Customer_Save]", param, transaction: trans, commandType: CommandType.StoredProcedure);
 
-                    //Now make a loop on address list and insert in DB
+                    //Now make a loop on address list and save in DB
                     foreach (CustomerAddress customerAddress in req.CustomerAddressList)
                     {
                         customerAddress.CustomerId = CustomerId;
                         DynamicParameters addressparam = new DynamicParameters();
                         AutoGenerateInputParams(addressparam, customerAddress);
                         await con.ExecuteAsync("[dbo].[CustomerAddress_Save]", addressparam, transaction: trans, commandType: CommandType.StoredProcedure);
+                    }
+                    //Now make a loop on billing info list and save in DB
+                    foreach (CustomerBillingInfo customerBillingInfo in req.CustomerBillingInfoList)
+                    {
+                        customerBillingInfo.CustomerId = CustomerId;
+                        DynamicParameters billInfoparam = new DynamicParameters();
+                        AutoGenerateInputParams(billInfoparam, customerBillingInfo);
+                        await con.ExecuteAsync("[dbo].[BillingInfo_Save]", billInfoparam, transaction: trans, commandType: CommandType.StoredProcedure);
                     }
                     trans.Commit();
                 }
@@ -55,52 +74,64 @@ namespace DAL.Handlers
         /// Handler to search guest data
         /// </summary>
         /// <returns></returns>
-        public async Task<ListResponse> Customer_Search()
+        public async Task<ListResponse> Customer_Search(CustomerSearch req)
         {
             ListResponse response = new ListResponse();
-            List<CustomerModel> ret = new List<CustomerModel>();
+            
+            List<CustomerModel> lstCustomer = new List<CustomerModel>();
+            List<CustomerAddress> lstAddres = new List<CustomerAddress>();
+            List<CustomerBillingInfo> lstBillingInfo = new List<CustomerBillingInfo>();
 
-            List<CustomerLookup> lstCustomerLookup = new List<CustomerLookup>();
-            List<CustomerAddress> lstAddresLookup = new List<CustomerAddress>();
+            DynamicParameters param = new DynamicParameters();
+            if (req != null)
+                AutoGenerateInputParams(param, req);
+
             using (SqlConnection con = await CreateConnectionAsync())
             {
-                GridReader reader = await con.QueryMultipleAsync("dbo.Customers_GetAll", commandType: System.Data.CommandType.StoredProcedure);
-                lstCustomerLookup = (await reader.ReadAsync<CustomerLookup>()).AsList<CustomerLookup>();
-                lstAddresLookup = (await reader.ReadAsync<CustomerAddress>()).AsList<CustomerAddress>();
+                GridReader reader = await con.QueryMultipleAsync("dbo.Customers_GetAll", param, commandType: System.Data.CommandType.StoredProcedure);
+                lstCustomer = (await reader.ReadAsync<CustomerModel>()).AsList<CustomerModel>();
+                lstAddres = (await reader.ReadAsync<CustomerAddress>()).AsList<CustomerAddress>();
+                lstBillingInfo = (await reader.ReadAsync<CustomerBillingInfo>()).AsList<CustomerBillingInfo>();
             }
             
-            foreach (CustomerLookup customerLookup in lstCustomerLookup)
+            foreach (CustomerModel customer in lstCustomer)
             {
-                CustomerModel customerModel = new CustomerModel();
-                customerModel.CustomerId = customerLookup.CustomerId;
-                customerModel.DateofBirth = customerLookup.DateofBirth;
-                customerModel.FirstName = customerLookup.FirstName;
-                customerModel.Gender = customerLookup.Gender;
-                customerModel.LastName = customerLookup.LastName;
-                customerModel.Title = customerLookup.Title;
-                customerModel.CustomerAddressList = new List<CustomerAddress>();
-                var customerAddress = lstAddresLookup.Where(adr => adr.CustomerId == customerLookup.CustomerId);
-                customerModel.CustomerAddressList = customerAddress.ToList();
-                //foreach (AddressLookup addressLookup in customerAddress)
-                //{
-                //    customerModel.CustomerAddressList.Add(new CustomerAddress() {
-                //                                                                    Address1 = addressLookup.Address1,
-                //                                                                    Address2 = addressLookup.Address2,
-                //                                                                    AddressId = addressLookup.AddressId,
-                //                                                                    City = addressLookup.City,
-                //                                                                    Country = addressLookup.Country,
-                //                                                                    CustomerId = addressLookup.CustomerId,
-                //                                                                    IsBilling = addressLookup.IsBilling,
-                //                                                                    IsShipping = addressLookup.IsShipping,
-                //                                                                    PostalCode = addressLookup.PostalCode,
-                //                                                                    State = addressLookup.State
-                //    });
-                //}
-                ret.Add(customerModel);
+                customer.CustomerAddressList = new List<CustomerAddress>();
+                customer.CustomerAddressList = lstAddres.Where(adr => adr.CustomerId == customer.CustomerId).ToList();
+                customer.CustomerBillingInfoList = new List<CustomerBillingInfo>();
+                customer.CustomerBillingInfoList = lstBillingInfo.Where(bill => bill.CustomerId == customer.CustomerId).ToList();
             }
 
-            response.Result = ret.AsList();
+            response.Result = lstCustomer.AsList();
             //response.TotalRecords = ret.Count();
+            return response;
+        }
+
+        /// <summary>
+        /// Handler to delete customer and related data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<SimpleResponse> Customer_Delete(int id)
+        {
+            SimpleResponse response = new SimpleResponse();
+
+            DynamicParameters def = new DynamicParameters();
+            def.Add("CustomerId", id, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+            
+            using (SqlConnection con = await CreateConnectionAsync())
+            {
+                using (var trans = con.BeginTransaction())
+                {
+                    await con.ExecuteAsync("dbo.CustomerAddress_Delete", param: def, transaction: trans, commandType: System.Data.CommandType.StoredProcedure);
+                    await con.ExecuteAsync("dbo.BillingInfo_Delete", param: def, transaction: trans, commandType: System.Data.CommandType.StoredProcedure);
+                    await con.ExecuteAsync("dbo.Customer_Delete", param: def, transaction: trans, commandType: System.Data.CommandType.StoredProcedure);
+                 
+                    trans.Commit();
+                }
+                response.Result = true;
+            }
+
             return response;
         }
     }

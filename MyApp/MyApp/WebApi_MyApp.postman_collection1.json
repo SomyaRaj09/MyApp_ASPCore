@@ -1,0 +1,387 @@
+{
+	"id": "71820929-ab0b-cb81-e2da-51507d228700",
+	"name": "WebApi_MyApp",
+	"description": "Collection of all the apis used in my app",
+	"order": [
+		"d690bf11-03c0-62e3-d5b2-8295ccce9fcc",
+		"1486d078-7215-caf3-6180-5b184680443a",
+		"368965f9-5a7d-4ac3-d441-849620830375",
+		"bdf1d45b-a54d-d784-2ab1-f962b6c2111f",
+		"3a99a6c3-4ca6-00d3-a576-bbb1d82f37c7",
+		"8f7e5a98-9ac9-487d-a9e6-40e383129a20",
+		"7c522f20-987c-6237-04bb-10cf913f20e3",
+		"aab39660-a1a0-d283-19f5-3faa1dcd79be",
+		"a6293296-db78-d1a0-8fd2-a3440410709b",
+		"129bc68a-0c10-1e1c-51f6-d8fc85f39532"
+	],
+	"folders": [],
+	"folders_order": [],
+	"timestamp": 1540547976103,
+	"owner": 0,
+	"public": false,
+	"requests": [
+		{
+			"id": "129bc68a-0c10-1e1c-51f6-d8fc85f39532",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_Save?id=1",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540549154968,
+			"name": "Update order data",
+			"description": "It will update data of order in order and related tables",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": [],
+			"rawModeData": "{\r\n  \"orderNumber\": 0,\r\n  \"customerId\": 0,\r\n  \"orderDate\": \"2018-10-26T10:19:00.178Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"string\",\r\n  \"shippingCost\": 0,\r\n  \"currencyCode\": \"string\",\r\n  \"taxes\": 0,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"string\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 0,\r\n      \"orderNumber\": 0,\r\n      \"itemName\": \"string\",\r\n      \"itemCode\": \"string\",\r\n      \"price\": 0,\r\n      \"quantity\": 0,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"id": "1486d078-7215-caf3-6180-5b184680443a",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Order/Order_SearchAll",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540548464942,
+			"name": "Get all order list",
+			"description": "This will return all the order list present in database",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		},
+		{
+			"id": "368965f9-5a7d-4ac3-d441-849620830375",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_SearchPaginated?PageNumber=1&PageSize=1000",
+			"queryParams": [
+				{
+					"key": "PageNumber",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "PageSize",
+					"value": "1000",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540548408883,
+			"name": "Get paginated customer list",
+			"description": "This will return paginated customers list",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		},
+		{
+			"id": "3a99a6c3-4ca6-00d3-a576-bbb1d82f37c7",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_Delete?id=1",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": [
+				{
+					"key": "id",
+					"value": "1",
+					"description": "",
+					"type": "text",
+					"enabled": false
+				}
+			],
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540549259892,
+			"name": "Delete customer data",
+			"description": "It will delete all the data of customer from customer and related tables ",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		},
+		{
+			"id": "7c522f20-987c-6237-04bb-10cf913f20e3",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_Save",
+			"queryParams": [],
+			"pathVariables": {},
+			"pathVariableData": [],
+			"preRequestScript": null,
+			"method": "POST",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"data": [],
+			"dataMode": "raw",
+			"name": "Save customer data",
+			"description": "It will save data of customer in customer and related tables",
+			"descriptionFormat": "html",
+			"time": 1540549018363,
+			"version": 2,
+			"responses": [],
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"rawModeData": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"gender\": \"string\",\r\n  \"dateofBirth\": \"2018-10-26T10:15:45.944Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 0,\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"city\": \"string\",\r\n      \"state\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postalCode\": \"string\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": true\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 0,\r\n      \"cardType\": \"string\",\r\n      \"cardholderName\": \"string\",\r\n      \"cardNumber\": \"string\",\r\n      \"expiryDate\": \"2018-10-26T10:15:45.945Z\",\r\n      \"cvv\": \"string\"\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"id": "8f7e5a98-9ac9-487d-a9e6-40e383129a20",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Order/Order_Delete?id=1",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "DELETE",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540548915336,
+			"name": "Delete order data",
+			"description": "It will delete all the data of order from order and related tables ",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		},
+		{
+			"id": "a6293296-db78-d1a0-8fd2-a3440410709b",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_Save?id=1",
+			"queryParams": [
+				{
+					"key": "id",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "PUT",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540549130297,
+			"name": "Update customer data",
+			"description": "It will update data of customer in customer and related tables",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": [],
+			"rawModeData": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"gender\": \"string\",\r\n  \"dateofBirth\": \"2018-10-26T10:15:45.944Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 0,\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"city\": \"string\",\r\n      \"state\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postalCode\": \"string\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": true\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 0,\r\n      \"cardType\": \"string\",\r\n      \"cardholderName\": \"string\",\r\n      \"cardNumber\": \"string\",\r\n      \"expiryDate\": \"2018-10-26T10:15:45.945Z\",\r\n      \"cvv\": \"string\"\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"id": "aab39660-a1a0-d283-19f5-3faa1dcd79be",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_Save",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "POST",
+			"data": [],
+			"dataMode": "raw",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540549148393,
+			"name": "Save order data",
+			"description": "It will save data of order in order and related tables",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": [],
+			"rawModeData": "{\r\n  \"orderNumber\": 0,\r\n  \"customerId\": 0,\r\n  \"orderDate\": \"2018-10-26T10:19:00.178Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"string\",\r\n  \"shippingCost\": 0,\r\n  \"currencyCode\": \"string\",\r\n  \"taxes\": 0,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"string\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 0,\r\n      \"orderNumber\": 0,\r\n      \"itemName\": \"string\",\r\n      \"itemCode\": \"string\",\r\n      \"price\": 0,\r\n      \"quantity\": 0,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
+		},
+		{
+			"id": "bdf1d45b-a54d-d784-2ab1-f962b6c2111f",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Order/Order_SearchPaginated?PageNumber=1&PageSize=1000",
+			"queryParams": [
+				{
+					"key": "PageNumber",
+					"value": "1",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				},
+				{
+					"key": "PageSize",
+					"value": "1000",
+					"equals": true,
+					"description": "",
+					"enabled": true
+				}
+			],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540548670896,
+			"name": "Get paginated order list",
+			"description": "This will return paginated order list",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		},
+		{
+			"id": "d690bf11-03c0-62e3-d5b2-8295ccce9fcc",
+			"headers": "Content-Type: application/json\n",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"enabled": true
+				}
+			],
+			"url": "http://localhost:15829/Customer/Customer_SearchAll",
+			"queryParams": [],
+			"preRequestScript": null,
+			"pathVariables": {},
+			"pathVariableData": [],
+			"method": "GET",
+			"data": null,
+			"dataMode": "params",
+			"version": 2,
+			"tests": null,
+			"currentHelper": "normal",
+			"helperAttributes": {},
+			"time": 1540548078176,
+			"name": "Get all customer list",
+			"description": "This will return all the customer list present in database",
+			"collectionId": "71820929-ab0b-cb81-e2da-51507d228700",
+			"responses": []
+		}
+	]
+}

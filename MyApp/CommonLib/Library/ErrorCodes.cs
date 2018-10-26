@@ -52,6 +52,34 @@ namespace CommonLib.Library
         [Display(Name = "INVALID_GENDER")]
         INVALID_GENDER = 1013,
 
+        [Display(Name = "BILLING_INFO_REQUIRED")]
+        BILLING_INFO_Required = 1014,
+
+        [Display(Name = "CARD_HOLDER_NAME_REQUIRED")]
+        CARD_HOLDER_NAME_Required = 1015,
+
+        [Display(Name = "CARD_NUMBER_REQUIRED")]
+        CARD_NUMBER_Required = 1016,
+
+        [Display(Name = "CARD_TYPE_REQUIRED")]
+        CARD_TYPE_Required = 1017,
+
+        [Display(Name = "CVV_REQUIRED")]
+        CVV_Required = 1018,
+
+        [Display(Name = "EITHER_BILLING_OR_SHIPPING_FLAG_REQUIRED")]
+        EITHER_BILLING_OR_SHIPPING_FLAG_Required = 1019,
+
+        [Display(Name = "INVALID_DATE_OF_BIRTH")]
+        INVALID_DATE_OF_BIRTH = 1020,
+
+        [Display(Name = "INVALID_EXPIRY_DATE")]
+        INVALID_EXPIRY_DATE = 1021,
+
+        [Display(Name = "CUSTOMER_NAME_DUPLICATE")]
+        CUSTOMER_NAME_Duplicate = 1022,
+
+
         [Display(Name = "CUSTOMERID_REQUIRED")]
         CustomerId_Required = 2000,
 
@@ -77,6 +105,9 @@ namespace CommonLib.Library
         PRICE_Required = 2007,
 
         [Display(Name = "QUANTITY_REQUIRED")]
-        QUANTITY_Required = 2008
+        QUANTITY_Required = 2008,
+
+        [Display(Name = "INVALID_ORDER_DATE")]
+        INVALID_ORDER_DATE = 2009
     }
 }

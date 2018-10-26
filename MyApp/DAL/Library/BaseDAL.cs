@@ -53,9 +53,7 @@ namespace DAL.Library
 
                     name = string.IsNullOrEmpty(atSql.InputParamName) ? prop.Name : atSql.InputParamName;
                 }
-
-                //Console.WriteLine("T = " + prop.PropertyType.ToString() + " - " + (prop.GetValue(request) == null));
-                
+                //Console.WriteLine("T = " + prop.PropertyType.ToString() + " - " + (prop.GetValue(request) == null));                
                 if (prop.PropertyType.IsEnum)
                 {
                     if (prop.GetValue(request) == null)
@@ -74,14 +72,11 @@ namespace DAL.Library
                     if (prop.GetValue(request) != null)
                     {
                         System.Collections.IList lst = (System.Collections.IList)prop.GetValue(request);
-
                         List<String> arrStr = new List<string>();
-
                         foreach (object o in lst)
                         {
                             arrStr.Add(o.ToString());
                         }
-
                         param.Add(name, string.Join(",", arrStr));
                     }
                     else

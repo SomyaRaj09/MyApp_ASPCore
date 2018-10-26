@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL", "DAL\DAL.csproj", "{7
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CommonLib", "CommonLib\CommonLib.csproj", "{F1B9D294-68FA-4097-B5FF-B6DE437067D2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyAppTest", "MyAppTest\MyAppTest.csproj", "{E174B6BE-BEED-496D-A1E8-6AC36DA970D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyAppTest", "MyAppTest\MyAppTest.csproj", "{E174B6BE-BEED-496D-A1E8-6AC36DA970D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

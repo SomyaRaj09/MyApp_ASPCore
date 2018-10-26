@@ -44,9 +44,33 @@ namespace MyApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ListResponse> Order_Search()
+        public async Task<ListResponse> Order_SearchAll()
         {
-            return await prov.Order_Search();
+            return await prov.Order_Search(null);
+        }
+
+        /// <summary>
+        /// API to search paginated order data
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ListResponse> Order_SearchPaginated(int PageNumber, int PageSize) //OrderSearch req)
+        {
+            OrderSearch req = new OrderSearch();
+            req.PageNumber = PageNumber;
+            req.PageSize = PageSize;
+            return await prov.Order_Search(req);
+        }
+
+        /// <summary>
+        /// API to delete customer data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<SimpleResponse> Order_Delete(int id)
+        {
+            return await prov.Order_Delete(id);
         }
     }
 }

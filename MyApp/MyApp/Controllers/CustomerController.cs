@@ -45,41 +45,68 @@ namespace MyApp.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<ListResponse> Customer_Search()
+        public async Task<ListResponse> Customer_SearchAll()
         {
-            return await prov.Customer_Search();
+            //int a = 1;
+            //int b = 0;
+            //int c = a / b;
+            return await prov.Customer_Search(null);
         }
 
-            //// GET: api/Customer
-            //[HttpGet]
-            //public IEnumerable<string> Get()
-            //{
-            //    return new string[] { "value1", "value2" };
-            //}
-
-            //// GET: api/Customer/5
-            //[HttpGet("{id}", Name = "Get")]
-            //public string Get(int id)
-            //{
-            //    return "value";
-            //}
-
-            //// POST: api/Customer
-            //[HttpPost]
-            //public void Post([FromBody] string value)
-            //{
-            //}
-
-            //// PUT: api/Customer/5
-            //[HttpPut("{id}")]
-            //public void Put(int id, [FromBody] string value)
-            //{
-            //}
-
-            //// DELETE: api/ApiWithActions/5
-            //[HttpDelete("{id}")]
-            //public void Delete(int id)
-            //{
-            //}
+        /// <summary>
+        /// API to search paginated customer data 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public async Task<ListResponse> Customer_SearchPaginated(int PageNumber, int PageSize) //CustomerSearch req)
+        {
+            CustomerSearch req = new CustomerSearch();
+            req.PageNumber = PageNumber;
+            req.PageSize = PageSize;
+            return await prov.Customer_Search(req);
         }
+
+        /// <summary>
+        /// API to delete customer data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpDelete("{id}")]
+        public async Task<SimpleResponse> Customer_Delete(int id)
+        {
+            return await prov.Customer_Delete(id);
+        }
+
+        //// GET: api/Customer
+        //[HttpGet]
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
+
+        //// GET: api/Customer/5
+        //[HttpGet("{id}", Name = "Get")]
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
+
+        //// POST: api/Customer
+        //[HttpPost]
+        //public void Post([FromBody] string value)
+        //{
+        //}
+
+        //// PUT: api/Customer/5
+        //[HttpPut("{id}")]
+        //public void Put(int id, [FromBody] string value)
+        //{
+        //}
+
+        //// DELETE: api/ApiWithActions/5
+        //[HttpDelete("{id}")]
+        //public void Delete(int id)
+        //{
+        //}
+    }
 }

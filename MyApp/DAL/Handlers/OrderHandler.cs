@@ -23,10 +23,13 @@ namespace DAL.Handlers
         public async Task<SimpleResponse> Order_Save(OrderModel req)
         {
             SimpleResponse result = new SimpleResponse();
+            
+            int OrderNumber = 0;
+            float orderTotal = req.OrderItemList.Sum(item => (item.Price * item.Quantity));
+            req.OrderTotal = orderTotal;
             DynamicParameters param = new DynamicParameters();
             AutoGenerateInputParams(param, req);
 
-            int OrderNumber = 0;
             using (SqlConnection con = await CreateConnectionAsync())
             {
                 using (var trans = con.BeginTransaction())
@@ -54,42 +57,57 @@ namespace DAL.Handlers
         /// Handler to search order data
         /// </summary>
         /// <returns></returns>
-        public async Task<ListResponse> Order_Search()
+        public async Task<ListResponse> Order_Search(OrderSearch req)
         {
             ListResponse response = new ListResponse();
-            List<OrderModel> ret = new List<OrderModel>();
-
-            List<OrderLookup> lstOrderLookup = new List<OrderLookup>();
+            
+            List<OrderModel> lstOrder = new List<OrderModel>();
             List<OrderItem> lstOrderItem = new List<OrderItem>();
+
+            DynamicParameters param = new DynamicParameters();
+            if (req != null)
+                AutoGenerateInputParams(param, req);
+            
             using (SqlConnection con = await CreateConnectionAsync())
             {
-                GridReader reader = await con.QueryMultipleAsync("dbo.Order_GetAll", commandType: System.Data.CommandType.StoredProcedure);
-                lstOrderLookup = (await reader.ReadAsync<OrderLookup>()).AsList<OrderLookup>();
+                GridReader reader = await con.QueryMultipleAsync("dbo.Orders_GetAll", param, commandType: System.Data.CommandType.StoredProcedure);
+                lstOrder = (await reader.ReadAsync<OrderModel>()).AsList<OrderModel>();
                 lstOrderItem = (await reader.ReadAsync<OrderItem>()).AsList<OrderItem>();
             }
 
-            foreach (OrderLookup orderLookup in lstOrderLookup)
+            foreach (OrderModel order in lstOrder)
             {
-                OrderModel orderModel = new OrderModel();
-                orderModel.CouponCode = orderLookup.CouponCode;
-                orderModel.CurrencyCode = orderLookup.CurrencyCode;
-                orderModel.CustomerId = orderLookup.CustomerId;
-                orderModel.DiscountAmount = orderLookup.DiscountAmount;
-                orderModel.OrderDate = orderLookup.OrderDate;
-                orderModel.OrderNumber = orderLookup.OrderNumber;
-                orderModel.OrderTotal = orderLookup.OrderTotal;
-                orderModel.ShippingCost = orderLookup.ShippingCost;
-                orderModel.ShippingMethodCode = orderLookup.ShippingMethodCode;
-                orderModel.Taxes = orderLookup.Taxes;
-                orderModel.OrderItemList = new List<OrderItem>();
-                var orderItem = lstOrderItem.Where(ord => ord.OrderNumber == orderLookup.OrderNumber);
-                orderModel.OrderItemList = orderItem.ToList();
-
-                ret.Add(orderModel);
+                order.OrderItemList = new List<OrderItem>();
+                order.OrderItemList = lstOrderItem.Where(ord => ord.OrderNumber == order.OrderNumber).ToList();                
             }
 
-            response.Result = ret.AsList();
+            response.Result = lstOrder.AsList();
             //response.TotalRecords = ret.Count();
+            return response;
+        }
+
+        /// <summary>
+        /// Handler to delete order and related data
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<SimpleResponse> Order_Delete(int id)
+        {
+            SimpleResponse response = new SimpleResponse();
+
+            DynamicParameters def = new DynamicParameters();
+            def.Add("OrderNumber", id, System.Data.DbType.Int32, System.Data.ParameterDirection.Input);
+
+            using (SqlConnection con = await CreateConnectionAsync())
+            {
+                using (var trans = con.BeginTransaction())
+                {
+                    await con.ExecuteAsync("dbo.OrderItem_Delete", param: def, transaction: trans, commandType: System.Data.CommandType.StoredProcedure);
+                    await con.ExecuteAsync("dbo.Order_Delete", param: def, transaction: trans, commandType: System.Data.CommandType.StoredProcedure);
+                    response.Result = true;
+                }
+            }
+
             return response;
         }
     }
