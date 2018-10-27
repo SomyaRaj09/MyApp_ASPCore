@@ -84,8 +84,11 @@ namespace DAL.Handlers
 
             DynamicParameters param = new DynamicParameters();
             if (req != null)
+            {
                 AutoGenerateInputParams(param, req);
-
+                req.GenerateSQLParams(param);
+            }
+            
             using (SqlConnection con = await CreateConnectionAsync())
             {
                 GridReader reader = await con.QueryMultipleAsync("dbo.Customers_GetAll", param, commandType: System.Data.CommandType.StoredProcedure);

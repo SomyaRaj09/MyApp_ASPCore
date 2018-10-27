@@ -33,6 +33,8 @@ namespace CommonLib.Models
 
     public class OrderSearch : ListRequest
     {
-        
+        public int OrderNumber { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public string ShippingMethodCode { get; set; }
     }
 }

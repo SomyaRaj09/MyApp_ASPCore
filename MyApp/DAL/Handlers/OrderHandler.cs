@@ -18,17 +18,17 @@ namespace DAL.Handlers
         /// <summary>
         /// Handler to save order data
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="orderModel"></param>
         /// <returns></returns>
-        public async Task<SimpleResponse> Order_Save(OrderModel req)
+        public async Task<SimpleResponse> Order_Save(OrderModel orderModel)
         {
             SimpleResponse result = new SimpleResponse();
             
             int OrderNumber = 0;
-            float orderTotal = req.OrderItemList.Sum(item => (item.Price * item.Quantity));
-            req.OrderTotal = orderTotal;
+            float orderTotal = orderModel.OrderItemList.Sum(item => (item.Price * item.Quantity));
+            orderModel.OrderTotal = orderTotal;
             DynamicParameters param = new DynamicParameters();
-            AutoGenerateInputParams(param, req);
+            AutoGenerateInputParams(param, orderModel);
 
             using (SqlConnection con = await CreateConnectionAsync())
             {
@@ -38,7 +38,7 @@ namespace DAL.Handlers
                     OrderNumber = await con.ExecuteScalarAsync<int>("[dbo].[Order_Save]", param, transaction: trans, commandType: CommandType.StoredProcedure);
 
                     //Now make a loop on address list and insert in DB
-                    foreach (OrderItem orderItem in req.OrderItemList)
+                    foreach (OrderItem orderItem in orderModel.OrderItemList)
                     {
                         orderItem.OrderNumber = OrderNumber;
                         DynamicParameters OrderItemparam = new DynamicParameters();
@@ -57,7 +57,7 @@ namespace DAL.Handlers
         /// Handler to search order data
         /// </summary>
         /// <returns></returns>
-        public async Task<ListResponse> Order_Search(OrderSearch req)
+        public async Task<ListResponse> Order_Search(OrderSearch orderSearch)
         {
             ListResponse response = new ListResponse();
             
@@ -65,8 +65,11 @@ namespace DAL.Handlers
             List<OrderItem> lstOrderItem = new List<OrderItem>();
 
             DynamicParameters param = new DynamicParameters();
-            if (req != null)
-                AutoGenerateInputParams(param, req);
+            if (orderSearch != null)
+            {
+                AutoGenerateInputParams(param, orderSearch);
+                orderSearch.GenerateSQLParams(param);
+            }
             
             using (SqlConnection con = await CreateConnectionAsync())
             {

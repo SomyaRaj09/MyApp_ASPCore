@@ -45,6 +45,7 @@ namespace CommonLib.Models
 
     public class CustomerSearch : ListRequest
     {
-
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
     }
 }

@@ -11,49 +11,49 @@ namespace DAL.Providers
 {
     public class OrderProvider
     {
-        public OrderHandler handler = new OrderHandler();
+        private OrderHandler _orderHandler = new OrderHandler();
 
         /// <summary>
         /// Provider for api to save order data
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="orderModel"></param>
         /// <returns></returns>
-        public async Task<SimpleResponse> Order_Save(OrderModel req)
+        public async Task<SimpleResponse> Order_Save(OrderModel orderModel)
         {
-            SimpleResponse response = new SimpleResponse();
+            SimpleResponse simpleResponse = new SimpleResponse();
             
-            response = ValidateOrderSave(response, req);
-            if (response.HasError)
-                return response;
-            return await handler.Order_Save(req);
+            simpleResponse = ValidateOrderSave(simpleResponse, orderModel);
+            if (simpleResponse.HasError)
+                return simpleResponse;
+            return await _orderHandler.Order_Save(orderModel);
         }
 
         /// <summary>
         /// Method to check the validation while saving the order
         /// </summary>
-        /// <param name="response"></param>
-        /// <param name="req"></param>
+        /// <param name="simpleResponse"></param>
+        /// <param name="orderModel"></param>
         /// <returns></returns>
-        private SimpleResponse ValidateOrderSave(SimpleResponse response, OrderModel req)
+        private SimpleResponse ValidateOrderSave(SimpleResponse simpleResponse, OrderModel orderModel)
         {
             //bool isNumeric = int.TryParse("123", out n);
-            if (string.IsNullOrEmpty(req.CurrencyCode))
-                response.SetError(ErrorCodes.CURRENCY_CODE_Required);
+            if (string.IsNullOrEmpty(orderModel.CurrencyCode))
+                simpleResponse.SetError(ErrorCodes.CURRENCY_CODE_Required);
 
-            if (req.CustomerId == 0)
-                response.SetError(ErrorCodes.CustomerId_Required);
+            if (orderModel.CustomerId == 0)
+                simpleResponse.SetError(ErrorCodes.CustomerId_Required);
 
-            if (req.ShippingCost <= 0)
-                response.SetError(ErrorCodes.ShippingCost_Required);
+            if (orderModel.ShippingCost <= 0)
+                simpleResponse.SetError(ErrorCodes.ShippingCost_Required);
 
-            if (string.IsNullOrEmpty(req.ShippingMethodCode))
-                response.SetError(ErrorCodes.ShippingMethodCode_Required);
+            if (string.IsNullOrEmpty(orderModel.ShippingMethodCode))
+                simpleResponse.SetError(ErrorCodes.ShippingMethodCode_Required);
 
-            if (req.Taxes <= 0)
-                response.SetError(ErrorCodes.Taxes_Required);
+            if (orderModel.Taxes <= 0)
+                simpleResponse.SetError(ErrorCodes.Taxes_Required);
 
-            if (req.OrderDate == DateTime.MinValue || req.OrderDate == DateTime.MaxValue)
-                response.SetError(ErrorCodes.INVALID_ORDER_DATE);
+            if (orderModel.OrderDate == DateTime.MinValue || orderModel.OrderDate == DateTime.MaxValue)
+                simpleResponse.SetError(ErrorCodes.INVALID_ORDER_DATE);
             //try
             //{
             //    DateTime dt = DateTime.Parse(req.DateofBirth);
@@ -62,37 +62,59 @@ namespace DAL.Providers
             //{
             //    response.SetError(ErrorCodes.DOB_Required);
             //}
-            if (req.OrderItemList == null || req.OrderItemList.Count == 0)
+            if (orderModel.OrderItemList == null || orderModel.OrderItemList.Count == 0)
             {
-                response.SetError(ErrorCodes.ADDRESS_Required);
+                simpleResponse.SetError(ErrorCodes.ADDRESS_Required);
             }
             else
             {
-                foreach (OrderItem orderItem in req.OrderItemList)
+                foreach (OrderItem orderItem in orderModel.OrderItemList)
                 {
                     if (string.IsNullOrEmpty(orderItem.ItemCode))
-                        response.SetError(ErrorCodes.ITEM_CODE_Required);
+                        simpleResponse.SetError(ErrorCodes.ITEM_CODE_Required);
 
                     if (string.IsNullOrEmpty(orderItem.ItemName))
-                        response.SetError(ErrorCodes.ITEM_NAME_Required);
+                        simpleResponse.SetError(ErrorCodes.ITEM_NAME_Required);
 
                     if (orderItem.Price <= 0)
-                        response.SetError(ErrorCodes.PRICE_Required);
+                        simpleResponse.SetError(ErrorCodes.PRICE_Required);
 
                     if (orderItem.Quantity <= 0)
-                        response.SetError(ErrorCodes.QUANTITY_Required);
+                        simpleResponse.SetError(ErrorCodes.QUANTITY_Required);
                 }
             }
-            return response;
+            return simpleResponse;
+        }
+        
+        /// <summary>
+        /// Method to check the validation while fetching the order
+        /// </summary>
+        /// <param name="response"></param>
+        /// <param name="orderSearch"></param>
+        /// <returns></returns>
+        private ListResponse ValidateOrderSearch(ListResponse listResponse, OrderSearch orderSearch)
+        {
+            if (orderSearch.PageNumber <= 0)
+                listResponse.SetError(ErrorCodes.INVALID_PAGE_NO_Required);
+            if (orderSearch.PageSize <= 0)
+                listResponse.SetError(ErrorCodes.INVALID_PAGE_SIZE_Required);
+
+            return listResponse;
         }
 
         /// <summary>
         /// Provider for api to search order 
         /// </summary>
         /// <returns></returns>
-        public async Task<ListResponse> Order_Search(OrderSearch req)
+        public async Task<ListResponse> Order_Search(OrderSearch orderSearch)
         {
-            return await handler.Order_Search(req);
+            ListResponse response = new ListResponse();
+
+            response = ValidateOrderSearch(response, orderSearch);
+            if (response.HasError)
+                return response;
+
+            return await _orderHandler.Order_Search(orderSearch);
         }
 
         /// <summary>
@@ -102,7 +124,7 @@ namespace DAL.Providers
         /// <returns></returns>
         public async Task<SimpleResponse> Order_Delete(int id)
         {
-            return await handler.Order_Delete(id);
+            return await _orderHandler.Order_Delete(id);
         }
     }
 }
