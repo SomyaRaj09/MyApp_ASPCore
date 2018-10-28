@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace DAL.Providers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class OrderProvider
     {
         private OrderHandler _orderHandler = new OrderHandler();
@@ -110,9 +113,12 @@ namespace DAL.Providers
         {
             ListResponse response = new ListResponse();
 
-            response = ValidateOrderSearch(response, orderSearch);
-            if (response.HasError)
-                return response;
+            if (orderSearch != null)
+            {
+                response = ValidateOrderSearch(response, orderSearch);
+                if (response.HasError)
+                    return response;
+            }
 
             return await _orderHandler.Order_Search(orderSearch);
         }

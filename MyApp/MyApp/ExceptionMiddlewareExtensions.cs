@@ -16,8 +16,9 @@ namespace MyApp
         {
             //logger = NLog.LogManager.GetCurrentClassLogger();
         }
+
         public static void ConfigureExceptionHandler(this IApplicationBuilder app)
-        {
+        {            
             app.UseExceptionHandler(appError =>
             {
                 appError.Run(async context =>
@@ -28,7 +29,6 @@ namespace MyApp
                     var contextFeature = context.Features.Get<IExceptionHandlerFeature>();
                     if (contextFeature != null)
                     {
-
                         logger.Error("\n" + contextFeature.Error + "\n", "MyApp");
 
                         await context.Response.WriteAsync(new

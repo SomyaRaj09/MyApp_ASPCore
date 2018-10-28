@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CommonLib.Core;
+﻿using CommonLib.Core;
 using CommonLib.Models;
 using DAL.Providers;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace MyApp.Controllers
 {
@@ -15,7 +12,7 @@ namespace MyApp.Controllers
     public class CustomerController : ControllerBase
     {
         private CustomerProvider _customerProvider = new CustomerProvider();
-
+        
         /// <summary>
         /// API to save customer data
         /// </summary>
@@ -47,9 +44,7 @@ namespace MyApp.Controllers
         [HttpGet]
         public async Task<ListResponse> Customer_SearchAll()
         {
-            //int a = 1;
-            //int b = 0;
-            //int c = a / b;
+            
             return await _customerProvider.Customer_Search(null);
         }
 

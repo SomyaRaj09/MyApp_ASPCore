@@ -3,12 +3,13 @@ using CommonLib.Library;
 using CommonLib.Models;
 using DAL.Handlers;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DAL.Providers
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class CustomerProvider
     {
         private CustomerHandler _customerHandler = new CustomerHandler();
@@ -16,7 +17,7 @@ namespace DAL.Providers
         /// <summary>
         /// Provider for api to save customer data
         /// </summary>
-        /// <param name="req"></param>
+        /// <param name="customerModel"></param>
         /// <returns></returns>
         public async Task<SimpleResponse> Customer_Save(CustomerModel customerModel)
         {
@@ -24,33 +25,14 @@ namespace DAL.Providers
             //Transform_CustomerSaveObject(req);            
             simpleResponse = ValidateCustomerSave(simpleResponse, customerModel);
             if (simpleResponse.HasError)
+            {
                 return simpleResponse;
+            }
+
             return await _customerHandler.Customer_Save(customerModel);
         }
 
-        private static void Transform_CustomerSaveObject(CustomerModel customerModel)
-        {
-            //if (req.RecurrencePattern != RecurrencePatterns.Monthly)
-            //{
-            //    req.RegisteredAtEndOfMonth = false;
-            //}
-            //if (req.EndPattern != RecurrencePatterns_End.EndBy)
-            //{
-            //    req.EndDateTime = null;
-            //}
-            //if (req.RecurrencePattern == RecurrencePatterns.Daily || req.RecurrencePattern == RecurrencePatterns.Hourly)
-            //{
-            //    if (req.RecurrenceFrequency.HasValue)
-            //    {
-            //        req.Dow = req.RecurrenceFrequency.ToString();
-            //    }
-            //}
-            //if (req.EndPattern != RecurrencePatterns_End.EndsAfter)
-            //{
-            //    req.MaxRecurrence = 0;
-            //}
-        }
-
+       
         /// <summary>
         /// Method to validate data while saving customer data
         /// </summary>
@@ -58,16 +40,22 @@ namespace DAL.Providers
         /// <param name="customerModel"></param>
         /// <returns></returns>
         private SimpleResponse ValidateCustomerSave(SimpleResponse simpleResponse, CustomerModel customerModel)
-        
-{
+
+        {
             if (string.IsNullOrEmpty(customerModel.Title))
+            {
                 simpleResponse.SetError(ErrorCodes.TITLE_Required);
+            }
 
             if (string.IsNullOrEmpty(customerModel.FirstName))
+            {
                 simpleResponse.SetError(ErrorCodes.FIRST_NAME_Required);
+            }
 
             if (string.IsNullOrEmpty(customerModel.LastName))
+            {
                 simpleResponse.SetError(ErrorCodes.LAST_NAME_Required);
+            }
 
             if (string.IsNullOrEmpty(customerModel.Gender))
             {
@@ -82,7 +70,9 @@ namespace DAL.Providers
             }
 
             if (customerModel.DateofBirth == DateTime.MinValue || customerModel.DateofBirth == DateTime.MaxValue)
+            {
                 simpleResponse.SetError(ErrorCodes.INVALID_DATE_OF_BIRTH);
+            }
             //try
             //{
             //    DateTime dt = DateTime.Parse(req.DateofBirth);
@@ -102,25 +92,39 @@ namespace DAL.Providers
                 foreach (CustomerAddress customerAddress in customerModel.CustomerAddressList)
                 {
                     if (string.IsNullOrEmpty(customerAddress.Address1))
+                    {
                         simpleResponse.SetError(ErrorCodes.ADDRESS1_Required);
+                    }
 
                     if (string.IsNullOrEmpty(customerAddress.Address2))
+                    {
                         simpleResponse.SetError(ErrorCodes.ADDRESS2_Required);
+                    }
 
                     if (string.IsNullOrEmpty(customerAddress.City))
+                    {
                         simpleResponse.SetError(ErrorCodes.CITY_Required);
+                    }
 
                     if (string.IsNullOrEmpty(customerAddress.Country))
+                    {
                         simpleResponse.SetError(ErrorCodes.COUNTRY_Required);
+                    }
 
                     if (string.IsNullOrEmpty(customerAddress.PostalCode))
+                    {
                         simpleResponse.SetError(ErrorCodes.POSTAL_CODE_Required);
+                    }
 
                     if (string.IsNullOrEmpty(customerAddress.State))
+                    {
                         simpleResponse.SetError(ErrorCodes.STATE_Required);
+                    }
 
                     if (!customerAddress.IsBilling && !customerAddress.IsShipping)
+                    {
                         simpleResponse.SetError(ErrorCodes.EITHER_BILLING_OR_SHIPPING_FLAG_Required);
+                    }
                 }
             }
             if (customerModel.CustomerBillingInfoList == null || customerModel.CustomerBillingInfoList.Count == 0)
@@ -132,19 +136,29 @@ namespace DAL.Providers
                 foreach (CustomerBillingInfo billInfo in customerModel.CustomerBillingInfoList)
                 {
                     if (string.IsNullOrEmpty(billInfo.CardholderName))
+                    {
                         simpleResponse.SetError(ErrorCodes.CARD_HOLDER_NAME_Required);
+                    }
 
                     if (string.IsNullOrEmpty(billInfo.CardNumber))
+                    {
                         simpleResponse.SetError(ErrorCodes.CARD_NUMBER_Required);
+                    }
 
                     if (string.IsNullOrEmpty(billInfo.CardType))
+                    {
                         simpleResponse.SetError(ErrorCodes.CARD_TYPE_Required);
+                    }
 
                     if (string.IsNullOrEmpty(billInfo.CVV))
+                    {
                         simpleResponse.SetError(ErrorCodes.CVV_Required);
+                    }
 
                     if (billInfo.ExpiryDate == DateTime.MinValue || billInfo.ExpiryDate == DateTime.MaxValue)
+                    {
                         simpleResponse.SetError(ErrorCodes.INVALID_EXPIRY_DATE);
+                    }
                 }
             }
             return simpleResponse;
@@ -158,10 +172,16 @@ namespace DAL.Providers
         /// <returns></returns>
         private ListResponse ValidateCustomerSearch(ListResponse listResponse, CustomerSearch customerSearch)
         {
+
             if (customerSearch.PageNumber <= 0)
+            {
                 listResponse.SetError(ErrorCodes.INVALID_PAGE_NO_Required);
+            }
+
             if (customerSearch.PageSize <= 0)
+            {
                 listResponse.SetError(ErrorCodes.INVALID_PAGE_SIZE_Required);
+            }
 
             return listResponse;
         }
@@ -173,11 +193,14 @@ namespace DAL.Providers
         public async Task<ListResponse> Customer_Search(CustomerSearch customerSearch)
         {
             ListResponse listResponse = new ListResponse();
-            
-            listResponse = ValidateCustomerSearch(listResponse, customerSearch);
-            if (listResponse.HasError)
-                return listResponse;
-
+            if (customerSearch != null)
+            {
+                listResponse = ValidateCustomerSearch(listResponse, customerSearch);
+                if (listResponse.HasError)
+                {
+                    return listResponse;
+                }
+            }
             return await _customerHandler.Customer_Search(customerSearch);
         }
 

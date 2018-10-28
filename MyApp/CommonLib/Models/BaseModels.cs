@@ -218,11 +218,11 @@ namespace CommonLib.Core
             AddInParameter(cmd, "@PageSize", PageSize);
             AddInParameter(cmd, "@OrderBy", OrderBy);
 
-            SqlParameter param = new SqlParameter();
-            param.ParameterName = "@TotalRecords";
-            param.Direction = ParameterDirection.Output;
-            param.Size = -1;
-            cmd.Parameters.Add(param);
+            //SqlParameter param = new SqlParameter();
+            //param.ParameterName = "@TotalRecords";
+            //param.Direction = ParameterDirection.Output;
+            //param.Size = -1;
+            //cmd.Parameters.Add(param);
         }
 
         public void GenerateSQLParams(DynamicParameters param)
@@ -231,7 +231,7 @@ namespace CommonLib.Core
             param.Add("PageSize", PageSize);
             param.Add("OrderBy", OrderBy);
 
-            param.Add("TotalRecords", null, DbType.Int32, ParameterDirection.Output, -1);
+            //param.Add("TotalRecords", null, DbType.Int32, ParameterDirection.Output, -1);
         }
     }
 }

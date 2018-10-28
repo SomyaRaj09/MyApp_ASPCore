@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CommonLib.Core;
+﻿using CommonLib.Core;
 using CommonLib.Models;
 using DAL.Providers;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MyApp.Controllers
 {
