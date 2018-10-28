@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace DAL.Providers
 {
     /// <summary>
-    /// 
+    /// Provider class for Order controller
     /// </summary>
     public class OrderProvider
     {

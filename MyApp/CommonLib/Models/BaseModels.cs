@@ -184,14 +184,14 @@ namespace CommonLib.Core
         public int PageSize { get; set; } = 20;
         [SQLParam(Usage = SQLParamPlaces.None)]
         public string OrderBy { get; set; }
-        [SQLParam(Usage = SQLParamPlaces.None)]
-        public int Skip
-        {
-            get
-            {
-                return (PageNumber - 1) * PageSize;
-            }
-        }
+        //[SQLParam(Usage = SQLParamPlaces.None)]
+        //public int Skip
+        //{
+        //    get
+        //    {
+        //        return (PageNumber - 1) * PageSize;
+        //    }
+        //}
 
         public void AddInParameter(SqlCommand dbCommand, string parameterName, object value)
         {

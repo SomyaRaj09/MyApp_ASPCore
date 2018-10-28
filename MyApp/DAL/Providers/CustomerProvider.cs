@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace DAL.Providers
 {
     /// <summary>
-    /// 
+    /// Provider class for Customer controller
     /// </summary>
     public class CustomerProvider
     {
