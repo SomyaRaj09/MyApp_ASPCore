@@ -1,6 +1,6 @@
 # MyApp_ASPCore
 
-Prerequisites : 
+Prerequisites :  
 VS2017 framework  
 SQL server 2012  
 IIS 7 or above  
