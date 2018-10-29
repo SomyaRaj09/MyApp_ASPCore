@@ -5,6 +5,13 @@ using System.Text;
 
 namespace CommonLib.Library
 {
+    // <copyright file="ErrorCodes.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>29/10/2018 02:00:00 PM </date>
+    // <summary>Class representing all error codes used in application</summary>
+
     public enum ErrorCodes
     {
         [Display(Name = "ERR_NO_ERROR")]

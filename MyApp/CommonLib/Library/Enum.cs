@@ -7,6 +7,13 @@ using System.Text;
 
 namespace CommonLib.Library
 {
+    // <copyright file="Enum.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>28/10/2018 01:30:00 PM </date>
+    // <summary>Class representing all the enums used in application and any related methods</summary>
+
     public static class EnumHelper
     {
         /// <summary>

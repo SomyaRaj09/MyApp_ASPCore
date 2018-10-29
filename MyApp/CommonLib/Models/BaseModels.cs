@@ -9,6 +9,13 @@ using static CommonLib.CustomAttributes;
 
 namespace CommonLib.Core
 {
+    // <copyright file="BaseModels.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>28/10/2018 08:20:00 AM </date>
+    // <summary>Class representing base response and base request which all models can inherit</summary>
+
     public class BaseResponse
     {
         public bool HasError
@@ -143,8 +150,6 @@ namespace CommonLib.Core
 
     public class ListResponse : BaseResponse
     {
-        //public int TotalRecords { get; set; }
-        //public int CurrentPage { get; set; }
         public object Result { get; set; }
 
         public ListResponse()
@@ -153,27 +158,8 @@ namespace CommonLib.Core
 
         public ListResponse(int TotalRecords, int CurrentPage, object Result)
         {
-            //this.TotalRecords = TotalRecords;
-            //this.CurrentPage = CurrentPage;
             this.Result = Result;
         }
-
-        //public void SetPagingOutput(SqlCommand cmd)
-        //{
-        //    object obj = cmd.Parameters["@TotalRecords"].Value;
-        //    if (obj == null || obj == DBNull.Value)
-        //    {
-        //        TotalRecords = 0;
-        //        return;
-        //    }
-
-        //    TotalRecords = Convert.ToInt32(obj);
-        //}
-
-        //public void SetPagingOutput(DynamicParameters param)
-        //{
-        //    TotalRecords = param.Get<int>("TotalRecords");
-        //}
     }
 
     public class ListRequest
@@ -184,15 +170,7 @@ namespace CommonLib.Core
         public int PageSize { get; set; } = 20;
         [SQLParam(Usage = SQLParamPlaces.None)]
         public string OrderBy { get; set; }
-        //[SQLParam(Usage = SQLParamPlaces.None)]
-        //public int Skip
-        //{
-        //    get
-        //    {
-        //        return (PageNumber - 1) * PageSize;
-        //    }
-        //}
-
+        
         public void AddInParameter(SqlCommand dbCommand, string parameterName, object value)
         {
             object finalVal = value;
@@ -217,12 +195,6 @@ namespace CommonLib.Core
             AddInParameter(cmd, "@PageNo", PageNumber);
             AddInParameter(cmd, "@PageSize", PageSize);
             AddInParameter(cmd, "@OrderBy", OrderBy);
-
-            //SqlParameter param = new SqlParameter();
-            //param.ParameterName = "@TotalRecords";
-            //param.Direction = ParameterDirection.Output;
-            //param.Size = -1;
-            //cmd.Parameters.Add(param);
         }
 
         public void GenerateSQLParams(DynamicParameters param)
@@ -230,8 +202,6 @@ namespace CommonLib.Core
             param.Add("PageNo", PageNumber);
             param.Add("PageSize", PageSize);
             param.Add("OrderBy", OrderBy);
-
-            //param.Add("TotalRecords", null, DbType.Int32, ParameterDirection.Output, -1);
         }
     }
 }

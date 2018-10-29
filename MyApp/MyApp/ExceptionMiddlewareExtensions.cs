@@ -9,6 +9,13 @@ using Microsoft.AspNetCore.Http;
 
 namespace MyApp
 {
+    // <copyright file="ExceptionMiddlewareExtensions.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>29/10/2018 10:30:00 AM </date>
+    // <summary>Class representing methods to handle exceptions</summary>
+
     public static class ExceptionMiddlewareExtensions
     {
         private static NLog.Logger logger = NLog.LogManager.GetCurrentClassLogger();

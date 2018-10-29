@@ -6,6 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyApp.Controllers
 {
+    // <copyright file="OrderController.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>21/10/2018 10:23:00 AM </date>
+    // <summary>Order controller class representing order related APIs</summary>
+
     [Route("[controller]/[action]")]
     [ApiController]
     public class OrderController : ControllerBase

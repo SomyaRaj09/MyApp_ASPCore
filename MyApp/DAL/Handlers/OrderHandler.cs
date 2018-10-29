@@ -13,6 +13,13 @@ using System.Linq;
 
 namespace DAL.Handlers
 {
+    // <copyright file="OrderHanlder.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>21/10/2018 10:23:00 AM </date>
+    // <summary>Order handler class returning order related data for APIs from database</summary>
+
     public class OrderHandler : BaseDAL
     {
         /// <summary>

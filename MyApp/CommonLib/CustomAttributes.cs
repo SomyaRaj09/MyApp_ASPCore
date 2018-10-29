@@ -5,6 +5,13 @@ using System.Text;
 
 namespace CommonLib
 {
+    // <copyright file="CustomAttributes.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>27/10/2018 01:00:00 PM </date>
+    // <summary>Class representing custom attributes i.e. used in dapper</summary>
+
     public class CustomAttributes
     {
         [AttributeUsage(AttributeTargets.Property, AllowMultiple = true)]

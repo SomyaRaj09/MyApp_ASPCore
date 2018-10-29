@@ -4,6 +4,13 @@ using System.Text;
 
 namespace CommonLib.Library
 {
+    // <copyright file="Contants.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>29/10/2018 08:30:00 AM </date>
+    // <summary>Class representing all the constants used in application</summary>
+
     public static class Customer_Gender
     {
         public const string MALE = "MALE";
