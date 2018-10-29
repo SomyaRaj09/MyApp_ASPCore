@@ -9,6 +9,13 @@ using System.Threading.Tasks;
 
 namespace DAL.Providers
 {
+    // <copyright file="OrderProvider.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>21/10/2018 10:23:00 AM </date>
+    // <summary>Order provider class representing connection between controllers and handlers</summary>
+
     /// <summary>
     /// Provider class for Order controller
     /// </summary>

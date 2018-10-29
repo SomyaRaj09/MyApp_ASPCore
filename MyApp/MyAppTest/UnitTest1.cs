@@ -14,21 +14,19 @@ using Xunit;
 
 namespace MyAppTest
 {
+    // <copyright file="UnitTest1.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>21/10/2018 10:23:00 AM </date>
+    // <summary>unit test class representing all the unit test cases for apis</summary>
+
     public class UnitTest1
     {
-        //private readonly TestServer _server;
-        //private readonly HttpClient _client;
         private RestClient client;
 
         public UnitTest1()
         {
-            ////string[] args = new string[0];
-            ////CreateWebHostBuilder(args).Build().Run();
-            //// Arrange
-            //_server = new TestServer(new WebHostBuilder()
-            //   // .UseUrls("http://localhost:5001")
-            //   .UseStartup<Startup>());
-            //_client = _server.CreateClient();
             client = new RestClient("http://localhost:15829");
         }
 
@@ -291,9 +289,5 @@ namespace MyAppTest
 
             Assert.False(response.Data.HasError);
         }
-
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
-                .UseStartup<Startup>();
     }
 }

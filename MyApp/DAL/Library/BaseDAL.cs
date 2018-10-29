@@ -15,6 +15,13 @@ using static CommonLib.CustomAttributes;
 
 namespace DAL.Library
 {
+    // <copyright file="BaseDAL.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>21/10/2018 10:23:00 AM </date>
+    // <summary>Class representing methods related to database (Connection string etc.)</summary>
+
     public class BaseDAL
     {   
         /// <summary>

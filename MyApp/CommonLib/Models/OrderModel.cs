@@ -4,6 +4,13 @@ using System.Collections.Generic;
 
 namespace CommonLib.Models
 {
+    // <copyright file="OrderModels.cs" company="Fuse Forward">
+    // Copyright (c) 2018 All Rights Reserved
+    // </copyright>
+    // <author>Somya Raj</author>
+    // <date>28/10/2018 08:00:00 AM </date>
+    // <summary>Class representing order models</summary>
+
     public class OrderModel
     {
         public int OrderNumber { get; set; }
