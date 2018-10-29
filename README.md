@@ -8,7 +8,7 @@ Postman
 
 Publish Steps
 
-Step 1 : Open MyApp project in VS2017.
+Step 1 : Open MyApp project in VS2017.  
 Step 2 : Publish application - Right click on MyApp project and select publish option.
 Step 3 : After selecting publish option a new window will be opened. Select publish option again. New window will be opened with 'Pick a publish target' title.
 Step 4 : Choose IIS, FTP, etc. option and press publish button.
