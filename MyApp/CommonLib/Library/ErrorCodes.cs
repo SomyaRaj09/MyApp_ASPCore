@@ -10,6 +10,12 @@ namespace CommonLib.Library
         [Display(Name = "ERR_NO_ERROR")]
         NoError = 0,
 
+        [Display(Name = "INVALID_PAGE_NO_Required")]
+        INVALID_PAGE_NO_Required = 1,
+
+        [Display(Name = "INVALID_PAGE_SIZE_Required")]
+        INVALID_PAGE_SIZE_Required = 2,
+
         [Display(Name = "ERR_GENERIC_ERROR")]
         ValidationError = 1000,
 

@@ -130,46 +130,12 @@
 		{
 			"name": "Delete customer data",
 			"request": {
-				"url": {
-					"raw": "http://localhost:15829/Customer/Customer_Delete?id=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "15829",
-					"path": [
-						"Customer",
-						"Customer_Delete"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1",
-							"equals": true,
-							"description": ""
-						}
-					],
-					"variable": []
-				},
+				"url": "http://localhost:15829/Customer/Customer_Delete/12",
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
+				"header": [],
 				"body": {
-					"mode": "formdata",
-					"formdata": [
-						{
-							"key": "id",
-							"value": "1",
-							"description": "",
-							"type": "text",
-							"disabled": true
-						}
-					]
+					"mode": "raw",
+					"raw": ""
 				},
 				"description": "It will delete all the data of customer from customer and related tables "
 			},
@@ -178,35 +144,9 @@
 		{
 			"name": "Delete order data",
 			"request": {
-				"url": {
-					"raw": "http://localhost:15829/Order/Order_Delete?id=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "15829",
-					"path": [
-						"Order",
-						"Order_Delete"
-					],
-					"query": [
-						{
-							"key": "id",
-							"value": "1",
-							"equals": true,
-							"description": ""
-						}
-					],
-					"variable": []
-				},
+				"url": "http://localhost:15829/Order/Order_Delete/1",
 				"method": "DELETE",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json",
-						"description": ""
-					}
-				],
+				"header": [],
 				"body": {},
 				"description": "It will delete all the data of order from order and related tables "
 			},
@@ -226,7 +166,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"gender\": \"string\",\r\n  \"dateofBirth\": \"2018-10-26T10:15:45.944Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 0,\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"city\": \"string\",\r\n      \"state\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postalCode\": \"string\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": true\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 0,\r\n      \"cardType\": \"string\",\r\n      \"cardholderName\": \"string\",\r\n      \"cardNumber\": \"string\",\r\n      \"expiryDate\": \"2018-10-26T10:15:45.945Z\",\r\n      \"cvv\": \"string\"\r\n    }\r\n  ]\r\n}"
+					"raw": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"t1\",\r\n  \"firstName\": \"f1\",\r\n  \"lastName\": \"l1\",\r\n  \"gender\": \"MALE\",\r\n  \"dateofBirth\": \"2018-10-26T10:15:45.944Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 0,\r\n      \"address1\": \"a1\",\r\n      \"address2\": \"a2\",\r\n      \"city\": \"city1\",\r\n      \"state\": \"state1\",\r\n      \"country\": \"country1\",\r\n      \"postalCode\": \"246761\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": false\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 0,\r\n      \"cardType\": \"Debit\",\r\n      \"cardholderName\": \"name1\",\r\n      \"cardNumber\": \"2563 2541 2898 7856\",\r\n      \"expiryDate\": \"2018-10-26T10:15:45.945Z\",\r\n      \"cvv\": \"568\"\r\n    }\r\n  ]\r\n}"
 				},
 				"description": "It will save data of customer in customer and related tables"
 			},
@@ -235,7 +175,7 @@
 		{
 			"name": "Save order data",
 			"request": {
-				"url": "http://localhost:15829/Customer/Customer_Save",
+				"url": "http://localhost:15829/Order/Order_Save",
 				"method": "POST",
 				"header": [
 					{
@@ -246,7 +186,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"orderNumber\": 0,\r\n  \"customerId\": 0,\r\n  \"orderDate\": \"2018-10-26T10:19:00.178Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"string\",\r\n  \"shippingCost\": 0,\r\n  \"currencyCode\": \"string\",\r\n  \"taxes\": 0,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"string\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 0,\r\n      \"orderNumber\": 0,\r\n      \"itemName\": \"string\",\r\n      \"itemCode\": \"string\",\r\n      \"price\": 0,\r\n      \"quantity\": 0,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
+					"raw": "{\r\n  \"orderNumber\": 0,\r\n  \"customerId\": 2,\r\n  \"orderDate\": \"2018-10-26T10:19:00.178Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"GROUND\",\r\n  \"shippingCost\": 10,\r\n  \"currencyCode\": \"CAD\",\r\n  \"taxes\": 2,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"Coupon\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 0,\r\n      \"orderNumber\": 0,\r\n      \"itemName\": \"item 1\",\r\n      \"itemCode\": \"code 1\",\r\n      \"price\": 10,\r\n      \"quantity\": 2,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
 				},
 				"description": "It will save data of order in order and related tables"
 			},
@@ -256,7 +196,7 @@
 			"name": "Update customer data",
 			"request": {
 				"url": {
-					"raw": "http://localhost:15829/Customer/Customer_Save?id=1",
+					"raw": "http://localhost:15829/Customer/Customer_Update?id=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -264,12 +204,12 @@
 					"port": "15829",
 					"path": [
 						"Customer",
-						"Customer_Save"
+						"Customer_Update"
 					],
 					"query": [
 						{
 							"key": "id",
-							"value": "1",
+							"value": "2",
 							"equals": true,
 							"description": ""
 						}
@@ -286,7 +226,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"string\",\r\n  \"firstName\": \"string\",\r\n  \"lastName\": \"string\",\r\n  \"gender\": \"string\",\r\n  \"dateofBirth\": \"2018-10-26T10:15:45.944Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 0,\r\n      \"address1\": \"string\",\r\n      \"address2\": \"string\",\r\n      \"city\": \"string\",\r\n      \"state\": \"string\",\r\n      \"country\": \"string\",\r\n      \"postalCode\": \"string\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": true\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 0,\r\n      \"cardType\": \"string\",\r\n      \"cardholderName\": \"string\",\r\n      \"cardNumber\": \"string\",\r\n      \"expiryDate\": \"2018-10-26T10:15:45.945Z\",\r\n      \"cvv\": \"string\"\r\n    }\r\n  ]\r\n}"
+					"raw": "{\r\n  \"customerId\": 0,\r\n  \"title\": \"t1\",\r\n  \"firstName\": \"f1\",\r\n  \"lastName\": \"l1\",\r\n  \"gender\": \"Male\",\r\n  \"dateofBirth\": \"2018-10-26T11:57:38.558Z\",\r\n  \"customerAddressList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"addressId\": 2,\r\n      \"address1\": \"a1\",\r\n      \"address2\": \"a2\",\r\n      \"city\": \"city1\",\r\n      \"state\": \"state1\",\r\n      \"country\": \"country1\",\r\n      \"postalCode\": \"246761\",\r\n      \"isShipping\": true,\r\n      \"isBilling\": false\r\n    }\r\n  ],\r\n  \"customerBillingInfoList\": [\r\n    {\r\n      \"customerId\": 0,\r\n      \"billingInfoId\": 2,\r\n      \"cardType\": \"DEBIT\",\r\n      \"cardholderName\": \"name 1\",\r\n      \"cardNumber\": \"2563 2541 2898 7856\",\r\n      \"expiryDate\": \"2018-10-26T11:57:38.559Z\",\r\n      \"cvv\": \"568\"\r\n    }\r\n  ]\r\n}"
 				},
 				"description": "It will update data of customer in customer and related tables"
 			},
@@ -296,20 +236,20 @@
 			"name": "Update order data",
 			"request": {
 				"url": {
-					"raw": "http://localhost:15829/Customer/Customer_Save?id=1",
+					"raw": "http://localhost:15829/Order/Order_Update?id=3",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "15829",
 					"path": [
-						"Customer",
-						"Customer_Save"
+						"Order",
+						"Order_Update"
 					],
 					"query": [
 						{
 							"key": "id",
-							"value": "1",
+							"value": "3",
 							"equals": true,
 							"description": ""
 						}
@@ -326,7 +266,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n  \"orderNumber\": 0,\r\n  \"customerId\": 0,\r\n  \"orderDate\": \"2018-10-26T10:19:00.178Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"string\",\r\n  \"shippingCost\": 0,\r\n  \"currencyCode\": \"string\",\r\n  \"taxes\": 0,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"string\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 0,\r\n      \"orderNumber\": 0,\r\n      \"itemName\": \"string\",\r\n      \"itemCode\": \"string\",\r\n      \"price\": 0,\r\n      \"quantity\": 0,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
+					"raw": "{\r\n  \"orderNumber\": 2,\r\n  \"customerId\": 1,\r\n  \"orderDate\": \"2018-10-26T12:01:48.299Z\",\r\n  \"orderTotal\": 0,\r\n  \"shippingMethodCode\": \"GROUND\",\r\n  \"shippingCost\": 10,\r\n  \"currencyCode\": \"CAD\",\r\n  \"taxes\": 2,\r\n  \"discountAmount\": 0,\r\n  \"couponCode\": \"Coupon\",\r\n  \"orderItemList\": [\r\n    {\r\n      \"orderItemId\": 1,\r\n      \"orderNumber\": 2,\r\n      \"itemName\": \"item name\",\r\n      \"itemCode\": \"item code\",\r\n      \"price\": 10,\r\n      \"quantity\": 3,\r\n      \"totalPrice\": 0\r\n    }\r\n  ]\r\n}"
 				},
 				"description": "It will update data of order in order and related tables"
 			},

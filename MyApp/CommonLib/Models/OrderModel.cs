@@ -1,7 +1,6 @@
 ﻿using CommonLib.Core;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CommonLib.Models
 {
@@ -33,6 +32,8 @@ namespace CommonLib.Models
 
     public class OrderSearch : ListRequest
     {
-        
+        public int OrderNumber { get; set; }
+        public DateTime? OrderDate { get; set; }
+        public string ShippingMethodCode { get; set; }
     }
 }

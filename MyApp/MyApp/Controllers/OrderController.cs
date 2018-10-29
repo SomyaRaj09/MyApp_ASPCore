@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CommonLib.Core;
+﻿using CommonLib.Core;
 using CommonLib.Models;
 using DAL.Providers;
 using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace MyApp.Controllers
 {
@@ -13,7 +10,7 @@ namespace MyApp.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        public OrderProvider prov = new OrderProvider();
+        private OrderProvider _orderProvider = new OrderProvider();
 
         /// <summary>
         /// API to save order data
@@ -21,9 +18,9 @@ namespace MyApp.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPost]
-        public async Task<SimpleResponse> Order_Save(OrderModel req)
+        public async Task<SimpleResponse> Order_Save(OrderModel orderModel)
         {
-            return await prov.Order_Save(req);
+            return await _orderProvider.Order_Save(orderModel);
         }
 
         /// <summary>
@@ -33,10 +30,10 @@ namespace MyApp.Controllers
         /// <param name="req"></param>
         /// <returns></returns>
         [HttpPut]
-        public async Task<SimpleResponse> Order_Update(int id, [FromBody]OrderModel req)
+        public async Task<SimpleResponse> Order_Update(int id, [FromBody]OrderModel orderModel)
         {
-            req.OrderNumber = id;
-            return await prov.Order_Save(req);
+            orderModel.OrderNumber = id;
+            return await _orderProvider.Order_Save(orderModel);
         }
 
         /// <summary>
@@ -46,7 +43,7 @@ namespace MyApp.Controllers
         [HttpGet]
         public async Task<ListResponse> Order_SearchAll()
         {
-            return await prov.Order_Search(null);
+            return await _orderProvider.Order_Search(null);
         }
 
         /// <summary>
@@ -56,12 +53,22 @@ namespace MyApp.Controllers
         [HttpGet]
         public async Task<ListResponse> Order_SearchPaginated(int PageNumber, int PageSize) //OrderSearch req)
         {
-            OrderSearch req = new OrderSearch();
-            req.PageNumber = PageNumber;
-            req.PageSize = PageSize;
-            return await prov.Order_Search(req);
+            OrderSearch orderSearch = new OrderSearch();
+            orderSearch.PageNumber = PageNumber;
+            orderSearch.PageSize = PageSize;
+            return await _orderProvider.Order_Search(orderSearch);
         }
 
+        /// <summary>
+        /// API to search order data (On order number or order date or shipping method) 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<ListResponse> Order_Search(OrderSearch orderSearch)
+        {
+            return await _orderProvider.Order_Search(orderSearch);
+        }
+        
         /// <summary>
         /// API to delete customer data
         /// </summary>
@@ -70,7 +77,7 @@ namespace MyApp.Controllers
         [HttpDelete("{id}")]
         public async Task<SimpleResponse> Order_Delete(int id)
         {
-            return await prov.Order_Delete(id);
+            return await _orderProvider.Order_Delete(id);
         }
     }
 }
