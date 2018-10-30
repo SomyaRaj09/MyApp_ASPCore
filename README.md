@@ -25,7 +25,7 @@ Right-click the site's app pool and select Basic Settings from the contextual me
 In the Edit Application Pool window, set the .NET CLR version to No Managed Code.  
 Step 4: Change "MainDBConnectionString" in appsettings.json file.  
 
-Test steps :  
+Test steps    
 
 Step 1: Pick postman collection from PostmanCollection folder (From GIT).  
 Step 2: Import one collection at a time from that folder.  
